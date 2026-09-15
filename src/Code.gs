@@ -4,6 +4,14 @@
  * from Drive, and a basic help/status reply. No group-chat reading yet.
  */
 
+// Pings the script's own config on a timer so the Apps Script container
+// stays warm, reducing cold-start latency on the next real request
+// (Meta's webhook verification is a single attempt with no retry, so a
+// slow cold start can make it fail outright).
+function keepWarm() {
+  getConfig_();
+}
+
 // Meta calls this once, on webhook setup, to verify you own the endpoint.
 function doGet(e) {
   const cfg = getConfig_();
