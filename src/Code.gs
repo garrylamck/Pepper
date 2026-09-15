@@ -35,8 +35,8 @@ function doPost(e) {
 
     const fromWaId = message.from;
 
-    // Only ever respond to the owner. Anyone else messaging the bot is ignored.
-    if (fromWaId !== cfg.ownerWaId) {
+    // Only ever respond to allowlisted owner numbers. Anyone else is ignored.
+    if (cfg.ownerWaIds.indexOf(fromWaId) === -1) {
       return ContentService.createTextOutput('ok');
     }
 
